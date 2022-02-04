@@ -12,23 +12,29 @@ def main():
 	# Example: B, C, D, E...
 	#          C, D, E, F...
 	#          ...
+	# For every possible shift of the regular alphabet...
 	for i in range(1, 26):
 		# Make a 2D array of characters
 		square.append([])
 
-		# Create the new alphabet by slicing the regular alphabet
-		# starting at position i, then append the rest, from
-		# the beggining to i - 1. Repeat until i = 25.
+		# Create a new alphabet by slicing the regular alphabet
+		# starting at position i and going to the end (the index of 'Z').
+		# then append the rest, starting from the beginning (position 0) 
+		# to i - 1. Repeat until i = 25.
 		sliced = alphabet[i:len(alphabet)] + alphabet[0:i]
 
-		# Create a list of all of the chars
+		# Create a list of all of the chars, and put them into the square.
 		square[i-1] = [char for char in sliced]
 	
-	# The last alphabet is just the regular alphabet
+	# The last alphabet in the Vigenere Square is just the regular alphabet.
 	square.append([char for char in alphabet])
 	
 	print('This is the Viginere Square:\n')
+	# For every row in the square
 	for row in range(len(square)):
+		# Print each character of the square, separated by spaces (' '.join)
+		# Print the character associated with the current row and column, (square[row][col])
+		# starting at index 0 and going until you reach the end of the row. (col in range(len(square[row])))
 		print(str(' '.join(square[row][col] for col in range(len(square[row])))))
 	
 	# Ask input from the user for a string to encipher
