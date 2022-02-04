@@ -20,8 +20,13 @@ def print_dict(dictionary, kind):
 		print(key_str)
 		print('-'*len(key_str))
 	
-	# For i in range of the length of the string contained at key 0
-	for i in range(len(dictionary[keys[0]])):
+	# Get all of the strings in the dictionary
+	strings = [dictionary[key] for key in keys]
+	# Find the longest string by the length
+	longest = max(strings, key=len)
+
+	# For i in range of the length of the longest string
+	for i in range(len(longest)):
 		# Print the card with the keys on the side
 		if (kind == 'card'):
 			print(str(keys[i] + '| ' + ' '.join(dictionary[a][i:i+1] or ' ' for j, a in enumerate(keys))))
