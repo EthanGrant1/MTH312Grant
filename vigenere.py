@@ -1,7 +1,5 @@
-
 # Viginere Cipher
 def main():
-	
 	# Regular Latin alphabet
 	alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -12,39 +10,33 @@ def main():
 	# Example: B, C, D, E...
 	#          C, D, E, F...
 	#          ...
-	# For every possible shift of the regular alphabet...
 	for i in range(1, 26):
 		# Make a 2D array of characters
 		square.append([])
 
-		# Create a new alphabet by slicing the regular alphabet
-		# starting at position i and going to the end (the index of 'Z').
-		# then append the rest, starting from the beginning (position 0) 
-		# to i - 1. Repeat until i = 25.
+		# Create the new alphabet by slicing the regular alphabet
+		# starting at position i, then append the rest, from
+		# the beginning to i - 1. Repeat until i = 25.
 		sliced = alphabet[i:len(alphabet)] + alphabet[0:i]
 
-		# Create a list of all of the chars, and put them into the square.
-		square[i-1] = [char for char in sliced]
+		# Create a list of all of the chars
+		square[i - 1] = [char for char in sliced]
 	
-	# The last alphabet in the Vigenere Square is just the regular alphabet.
+	# The last alphabet is just the regular alphabet
 	square.append([char for char in alphabet])
 	
 	print('This is the Viginere Square:\n')
-	# For every row in the square
 	for row in range(len(square)):
-		# Print each character of the square, separated by spaces (' '.join)
-		# Print the character associated with the current row and column, (square[row][col])
-		# starting at index 0 and going until you reach the end of the row. (col in range(len(square[row])))
 		print(str(' '.join(square[row][col] for col in range(len(square[row])))))
 	
-	# Ask input from the user for a string to encipher
-	plain = input('\nEnter a string to encipher: ')
+	# Ask input from the user for a string to encipher / decipher
+	plain = input('\nEnter a string to encipher / decipher: ')
 	
 	# Remove spaces
 	plain = ''.join(plain.split())
 
 	# Ask input from the user for a secret phrase
-	secret = input('Enter a secret phrase: ')
+	secret = input('Enter the secret phrase that you were given or create a new one: ')
 	
 	# Remove spaces
 	secret = ''.join(secret.split())
@@ -59,7 +51,7 @@ def main():
 	# Slice it to fit the plain text length. Also, put it in upper case.
 	key = key[0:len(plain)].upper()
 
-	print('\nPlain text and key: \n' + plain)
+	print('\nEntered text and key: \n' + plain)
 	print(key)
 	
 	# Encipher the text
@@ -87,6 +79,29 @@ def main():
 				# text character, but on the key phrase row
 				enciphered += square[row][proper_column]
 	
+	# Decipher the original text and the enciphered text
+	deciphered_original = ''
+	deciphered_enciphered = ''
+	# Plain alphabet is the last row of the Vigenere Square
+	plain_alpha = square[len(square) - 1]
+	# For every character in the enciphered / original text
+	for char in range(len(enciphered)):
+		# Search over the square's rows
+		for row in range(len(square)):
+			# Find the proper character for ciphertext -> plaintext
+			plain_char = plain_alpha[square[row].index(enciphered[char].upper())]
+			
+			# Find the proper character to decrypt the original text
+			decipher_char = plain_alpha[square[row].index(plain[char].upper())]
+
+			# If the first character in the row is equal to the key character
+			if (square[row][0] == key[char]):
+				# Append the characters to their appropriate strings
+				deciphered_enciphered += plain_char
+				deciphered_original += decipher_char
+
 	print('\nEnciphered text: \n' + enciphered)
+	print('\nEnciphered -> Plain: \n' + deciphered_enciphered)
+	print('\nDecrypted entered text: \n' + deciphered_original)
 main()
 
