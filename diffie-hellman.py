@@ -186,8 +186,32 @@ def main():
 	str(B) + '^' + str(a) + ' mod ' + str(p) + ' = ' + str((B**a) % p) + '. Both are equal. Alice and Bob chose their secret exponents a and b.\n' + 
 	'Alice calculates (g^a) mod p, which results in their number A. A is sent to Bob, who then computes (g^b) mod p which results in their number B.\n' + 
 	'Then, using their same exponents from before, Alice computes K = (B^a) mod p and Bob computes K = (A^b) mod p. They now have the same key that\n' +
-	'they can use for encryption.')
+	'they can use for encryption.\n')
 
+	print('Using XOR bitwise operations...')
+	print('"Hi" in binary representation is ' + str(format(48, '08b')) + ' ' + str(format(69, '08b')))
+	
+	H = str(format(48, '08b'))
+	i = str(format(69, '08b'))
+	K = str(format(34707, '16b'))
+
+	Hi = H + i
+	res = ''
+	for char in range(len(Hi)):
+		res += str(int(Hi[char]) ^ int(K[char]))
+	
+
+
+	print('Performing bitwise XOR on "Hi" with the key K = ' + str(K) + ', the result is: ' + res)
+	C9FC = str("{0:16b}".format(int("C9FC", 16)))
+	print('"C9FC" converted to binary is ' + C9FC + '.')
+	
+	res = ''
+	for char in range(len(K)):
+		res += str(int(C9FC[char]) ^ int(K[char]))
+	
+	print('Performing bitwise XOR on "C9FC" results in ' + str(res) + '.')
+	print('Converting this to binary and then ASCII, we have 78-111 ---> "No"' )
 main()
 
 
