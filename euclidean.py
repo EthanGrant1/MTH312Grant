@@ -12,10 +12,10 @@ def euclid(vec1, vec2):
 		vec2copy[ele] *= q
 	
 	# New vector v_k+1 = v_k-1 - (q_k+1 * v_k)
-	# v_k+1 = [r_k+1, m_k+1, n_k+1]
+	# v_k-1 = [r_k+1, m_k+1, n_k+1]
 	vk_plus1 = []
 	for ele in range(len(vec1)):
-		vk_plus1.append(vec1[ele] - vec2copy[ele])
+		vk_plus1.append(vec1[ele]-vec2copy[ele])
 
 	print ('Value of vec1 ... ' + str(vec1))
 	print ('Value of q ... ' + str(q))
@@ -28,6 +28,7 @@ def euclid(vec1, vec2):
 		
 		# Final values of v_k
 		print (str(vec2[0]) + ' = ' + str(vec2[1]) + ' * a + ' + str(vec2[2]) + ' * b')
+		return True
 	
 	# Else, increase k by one and start again
 	else:

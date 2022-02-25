@@ -1,37 +1,44 @@
 
-def check_prime(n, prime_list):
-	m = str(n)
-	last = m[len(m)-1]
-	
-	if (n in prime_list):
+# Prime checker
+def check_prime(n):
+	# Positive values only
+	n = abs(int(n))
+
+	# 0 and 1 are not prime because they do not have exactly 2 multiples
+	if n < 2:
+		return False
+
+	# 2 is the only even prime
+	if n == 2:
 		return True
-	
-	if ((last == '0' or last == '2' or last == '4' or last == '5' or
-	    last == '6' or last == '8')):
-#	    	print(str(n) + ' is not a prime.')
-	    	return False
-	
-	res = 0
-	for num in prime_list[1:-1]:
-		res = n % num
-		if (res == 0):
-#			print(str(n) + ' is not a prime.')
+
+	# Otherwise, all other even numbers are not prime
+	if not n & 1:
+		return False
+
+	# Check numbers from 3 to the square root of n. Only check the odd numbers.
+	for i in range(3, int(n**0.5) + 1, 2):
+		if n % i == 0:
 			return False
 
 	print(str(n) + ' is a prime.')
 	return True
 
+# Some driver code
 def main():
-	prime_list = [1, 2, 3, 5, 7]
 	
+	# A list of all of the primes that have been found
+	prime_list = []
+
+	# The upper bound for the prime check
 	bound = ''
 	while (not bound.isdigit()):
+		# Ask input from the user
 		bound = input('Upper bound for prime search (integers only): ')
 	
-	bound = abs(int(bound))
-
-	for i in range(1, bound):
-		if check_prime(i, prime_list):
+	# Check odd numbers
+	for i in range(1, bound, 2):
+		if check_prime(i):
 			prime_list.append(i)
 	
 	print('Prime list: \n' + str(prime_list))
